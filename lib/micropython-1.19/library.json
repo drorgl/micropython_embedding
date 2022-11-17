@@ -1,0 +1,116 @@
+{
+    "name": "micropython",
+    "version": "1.19",
+    "keywords": "micropython",
+    "description": "micropython",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/micropython/micropython/"
+    },
+    "build": {
+        "extraScript": "scripts/build_settings.py",
+
+        "environments":{
+            "espressif32":{
+                "flags":["-I generated/espressif32", "-Wno-error=comment"],
+                "srcFilter":[
+                ]
+            },
+
+            "native-win32":{
+                "flags":["-I generated/native-win32"],
+                "srcFilter":[
+                   
+                ]
+            },
+
+            "espressif32-disabled":{
+                "flags":["-I generated/espressif32", "-I ports/esp32", "-I ports/esp32/boards/GENERIC"],
+                "srcFilter":[
+                    "+<shared/readline/readline.c>",
+                    "+<shared/netutils/netutils.c>",
+                    "+<shared/timeutils/timeutils.c>",
+                    "+<shared/runtime/interrupt_char.c>",
+                    "+<shared/runtime/stdout_helpers.c>",
+                    "+<shared/runtime/sys_stdio_mphal.c>",
+                    "+<shared/runtime/pyexec.c>",
+
+                    "+<ports/esp32/gccollect.c>",
+                    "+<ports/esp32/mphalport.c>",
+                    "+<ports/esp32/help.c>",
+                    "+<ports/esp32/modutime.c>",
+                    "+<ports/esp32/mpthreadport.c>",
+                    "+<ports/esp32/uart.c>",
+                    "+<extmod/moductypes.c>"
+                ]
+            },
+            "native-unix-disabled":{
+                "flags":["-I generated/native-unix", "-I ports/unix","-I ports/unix/variants/dev","-D MICROPY_NO_ALLOCA"],
+                "srcFilter":[
+                    "+<ports/unix/*.c>",
+                    "-<ports/unix/fatfs_port.c>",
+                    "-<ports/unix/main.c>",
+                    "-<ports/unix/modusocket.c>",
+                    "-<ports/unix/modtermios.c>",
+                    "-<ports/unix/modffi.c>",
+                    "-<ports/unix/alloc.c>",
+                    "-<ports/unix/modjni.c>",
+                    "-<ports/unix/moduselect.c>",
+                    "-<ports/unix/modtime.c>",
+
+                    "+<extmod/moductypes.c>",
+                    "+<extmod/vfs.c>",
+                    "+<extmod/vfs_posix_file.c>",
+                    "+<extmod/vfs_reader.c>",
+                    "+<shared/readline/readline.c>",
+                    "+<shared/runtime/gchelper_generic.c>"
+
+                    
+                ]
+            },
+            "native-win32-disabled":{
+                "flags":["-I generated/native-win32","-I ports/windows","-I ports/windows/variants/dev"],
+                "srcFilter":[
+                    "+<shared/libc/printf.c>",
+                    "+<shared/runtime/gchelper_generic.c>",
+                    "+<ports/unix/input.c>",
+                    "+<ports/unix/modmachine.c>",
+                    "+<ports/unix/modtime.c>",
+                    "+<ports/unix/gccollect.c>",
+                    "+<ports/windows/windows_mphal.c>",
+                    "+<ports/windows/realpath.c>",
+                    "+<ports/windows/init.c>",
+                    "+<ports/windows/fmode.c>",
+
+
+                    "+<extmod/moductypes.c>",
+                    "+<extmod/vfs.c>",
+                    "+<extmod/vfs_posix_file.c>",
+                    "+<extmod/vfs_reader.c>",
+                    "+<shared/readline/readline.c>",
+                    "+<extmod/vfs_posix.c>"
+                ]
+            },
+            "common":{
+                "flags":["-I ports/generic"],
+                "srcFilter": [
+                    "-<*.c>",
+                    "-<*.cpp>",
+                    "+<py/*.c>",
+                    "+<py/*.cpp>",
+                    "-<py/gccollect.c>",
+
+                    "+<shared/readline/readline.c>",
+                    "+<extmod/moductypes.c>",
+                    "+<shared/runtime/gchelper_generic.c>",
+                    "+<ports/generic/*.c>"
+
+                ]
+            }
+        },
+
+        "includeDir": "./",
+        "srcDir": "./"
+    },
+    "dependencies": []
+}
